@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../api/api";
 import Sidebar from "../components/Sidebar";
-import { Image, Menu, Upload } from "lucide-react";
+import { Image, Menu, Upload, X, Loader2 } from "lucide-react";
 
 export default function CreatePost() {
   const navigate = useNavigate();
@@ -36,7 +36,7 @@ export default function CreatePost() {
   };
 
   return (
-    <div className="min-h-screen flex bg-gray-50">
+    <div className="min-h-screen mt-16 flex bg-gray-50">
       <button
         className="fixed top-4 left-4 z-[99] md:hidden p-2 bg-white rounded-full shadow-lg border border-gray-200"
         onClick={() => setIsSidebarOpen(!isSidebarOpen)}
@@ -50,17 +50,17 @@ export default function CreatePost() {
           onClick={() => setIsSidebarOpen(false)}
         ></div>
       )}
-      <div className="flex-1 flex justify-center items-start pt-16 md:pt-8 pb-8">
+      <div className="flex-1 flex justify-center items-start pt-16 md:pt-8 pb-8 px-4 md:px-0">
         <form
           onSubmit={submit}
-          className="bg-white rounded-xl shadow-2xl w-full max-w-4xl lg:max-w-3xl overflow-hidden flex flex-col md:flex-row min-h-[500px]"
+          className="bg-white rounded-xl shadow-2xl w-full max-w-4xl overflow-hidden flex flex-col md:flex-row min-h-[500px]"
         >
           <div className="md:w-3/5 bg-gray-100 flex flex-col items-center justify-center p-4 border-b md:border-b-0 md:border-r border-gray-200">
             {imageUrl ? (
               <img
                 src={imageUrl}
                 alt="Post Preview"
-                className="max-h-full max-w-full object-contain rounded-lg shadow-md"
+                className="max-h-full max-w-full object-contain rounded-lg shadow-xl border border-gray-300 transition-shadow duration-300"
                 onError={(e) => {
                   e.target.onerror = null;
                   e.target.src =
@@ -70,7 +70,9 @@ export default function CreatePost() {
             ) : (
               <div className="text-center p-8 text-gray-500">
                 <Image size={64} className="mx-auto mb-4 text-gray-400" />
-                <p className="text-lg font-semibold">Start a new post</p>
+                <p className="text-xl font-bold text-gray-700">
+                  Start a new post
+                </p>
                 <p className="text-sm mt-1">
                   Paste an image URL to see a preview.
                 </p>
@@ -78,8 +80,10 @@ export default function CreatePost() {
             )}
           </div>
           <div className="md:w-2/5 p-6 md:p-8 flex flex-col justify-between">
-            <h2 className="text-2xl font-serif mb-6 border-b pb-3 text-gray-700">
-              Write Caption
+            <h2 className="text-3xl font-serif mb-6 border-b pb-3 font-extrabold">
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-pink-500 to-yellow-500">
+                New Post
+              </span>
             </h2>
             <div className="space-y-6 flex-1">
               <input
@@ -87,7 +91,7 @@ export default function CreatePost() {
                 placeholder="Paste Image URL here..."
                 value={imageUrl}
                 onChange={(e) => setImageUrl(e.target.value)}
-                className="w-full border border-gray-300 p-3 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 transition"
+                className="w-full border border-gray-300 p-3 text-sm rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 hover:border-blue-400"
                 required
               />
               <textarea
@@ -96,21 +100,24 @@ export default function CreatePost() {
                 rows="6"
                 value={caption}
                 onChange={(e) => setCaption(e.target.value)}
-                className="w-full border border-gray-300 p-3 rounded-lg focus:ring-blue-500 focus:border-blue-500 resize-none text-sm"
+                className="w-full border border-gray-300 p-3 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none text-sm transition-all duration-200 hover:border-blue-400"
                 required
               />
             </div>
             <button
               type="submit"
               disabled={isSubmitting}
-              className={`w-full py-3 rounded-lg font-bold text-lg mt-8 transition-colors ${
+              className={`w-full py-3 rounded-lg font-bold text-lg mt-8 shadow-md transition-colors duration-300 flex items-center justify-center ${
                 isSubmitting
-                  ? "bg-blue-300 text-white cursor-not-allowed"
-                  : "bg-blue-500 text-white hover:bg-blue-600"
+                  ? "bg-blue-400 text-white opacity-75 cursor-not-allowed"
+                  : "bg-blue-500 text-white hover:bg-blue-600 hover:shadow-lg"
               }`}
             >
               {isSubmitting ? (
-                "Sharing..."
+                <>
+                  <Loader2 size={20} className="inline mr-2 animate-spin" />
+                  Sharing...
+                </>
               ) : (
                 <>
                   <Upload size={20} className="inline mr-2" /> Share Post

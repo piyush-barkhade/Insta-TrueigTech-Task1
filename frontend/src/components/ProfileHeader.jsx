@@ -122,7 +122,7 @@ export default function ProfileHeader({
               Following <ChevronDown size={14} />
             </button>
             <button
-              className="bg-gray-200 text-sm font-semibold py-1 px-4 rounded-lg hover:bg-gray-300 transition"
+              className="bg-gray-200 text-sm font-semibold py-1 px-4 rounded-lg hover:bg-gray-300 transition cursor-not-allowed"
               onClick={() => console.log("Navigate to chat")}
             >
               Message
