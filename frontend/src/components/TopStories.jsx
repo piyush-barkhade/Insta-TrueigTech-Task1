@@ -8,7 +8,7 @@ export default function TopStories() {
             className="flex flex-col items-center flex-shrink-0 w-18"
           >
             <div className="w-18 h-18 rounded-full border-2 border-pink-500 p-[2px]">
-              <div className="bg-gray-200 w-full h-full rounded-full">
+              <div className="bg-gray-200 w-full h-full rounded-full cursor-not-allowed">
                 <img
                   src="https://picsum.photos/id/1012/100/100"
                   alt="Dummy Story Image"

@@ -31,7 +31,7 @@ export default function Login() {
     <div className="min-h-screen bg-gray-50 flex items-center justify-center">
       <div className="w-[350px]">
         <div className="bg-white border border-gray-300 px-10 py-8">
-          <h1 className="text-4xl font-serif text-center mb-8">Instagram</h1>
+          <h1 className="text-4xl font-serif text-center mb-8">InstaRight</h1>
 
           {error && (
             <p className="text-red-500 text-sm text-center mb-4">{error}</p>

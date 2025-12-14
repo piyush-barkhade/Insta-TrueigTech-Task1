@@ -91,7 +91,6 @@ export default function Home() {
         <div className="max-w-4xl mx-auto opacity-50 pointer-events-none">
           <StoriesSkeleton />
           <SkeletonCard />
-          <SkeletonCard />
         </div>
         <div className="absolute inset-0 flex items-center justify-center backdrop-blur-sm bg-gray-50/70">
           <div className="text-center p-8 max-w-sm bg-white border border-gray-300 rounded-lg shadow-xl">
