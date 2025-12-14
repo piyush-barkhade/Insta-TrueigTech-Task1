@@ -1,5 +1,6 @@
 import { useState } from "react";
 import api from "../api/api";
+import { Facebook, Loader2 } from "lucide-react";
 
 export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -31,17 +32,28 @@ export default function Login() {
     <div className="min-h-screen bg-gray-50 flex items-center justify-center">
       <div className="w-[350px]">
         <div className="bg-white border border-gray-300 px-10 py-8">
-          <h1 className="text-4xl font-serif text-center mb-8">InstaRight</h1>
+          <h1 className="text-4xl font-serif text-center mb-8 font-extrabold">
+            <span
+              className="
+                bg-clip-text text-transparent bg-gradient-to-r 
+                from-indigo-600 via-pink-500 to-yellow-500
+              "
+            >
+              InstaRight
+            </span>
+          </h1>
 
           {error && (
-            <p className="text-red-500 text-sm text-center mb-4">{error}</p>
+            <p className="text-red-600 text-sm text-center mb-4 border border-red-200 bg-red-50 p-2 rounded-md transition-opacity">
+              {error}
+            </p>
           )}
 
           <form onSubmit={submit} className="flex flex-col gap-2">
             <input
               name="email"
               placeholder="Phone number, username, or email"
-              className="border border-gray-300 bg-gray-50 px-2 py-2 text-sm rounded focus:outline-none focus:border-gray-400"
+              className="border border-gray-300 bg-gray-50 px-2 py-2 text-sm rounded focus:ring-1 focus:ring-gray-400 focus:outline-none"
               value={form.email}
               onChange={handleChange}
               required
@@ -51,42 +63,62 @@ export default function Login() {
               name="password"
               type="password"
               placeholder="Password"
-              className="border border-gray-300 bg-gray-50 px-2 py-2 text-sm rounded focus:outline-none focus:border-gray-400"
+              className="border border-gray-300 bg-gray-50 px-2 py-2 text-sm rounded focus:ring-1 focus:ring-gray-400 focus:outline-none"
               value={form.password}
               onChange={handleChange}
               required
             />
 
             <button
-              disabled={loading}
-              className="mt-2 bg-[#0095f6] text-white text-sm font-semibold py-1.5 rounded disabled:opacity-50"
+              disabled={loading || !form.email || !form.password} // Disable if fields are empty
+              className="mt-4 bg-[#0095f6] text-white text-sm font-semibold py-1.5 rounded-lg transition-colors duration-300 flex items-center justify-center 
+              disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#007edb] focus:ring-2 focus:ring-blue-300 focus:ring-offset-1"
             >
-              {loading ? "Logging in..." : "Log in"}
+              {loading ? (
+                <Loader2 size={20} className="animate-spin" />
+              ) : (
+                "Log in"
+              )}
             </button>
           </form>
 
           <div className="flex items-center my-4">
-            <div className="h-px bg-gray-300" />
+            <div className="h-px bg-gray-300 flex-1" />
             <span className="mx-4 text-xs text-gray-500 font-semibold">OR</span>
-            <div className="h-px bg-gray-300" />
+            <div className="h-px bg-gray-300 flex-1" />
           </div>
 
-          <p className="text-center text-sm text-[#385185] font-semibold cursor-pointer">
+          <a
+            href="#"
+            className="flex items-center justify-center text-sm text-[#385185] font-semibold cursor-not-allowed py-1.5 hover:text-[#264070] transition-colors"
+          >
+            <Facebook size={16} className="mr-2" />
             Log in with Facebook
-          </p>
+          </a>
 
-          <p className="text-center text-xs text-blue-900 mt-4 cursor-pointer">
+          <a
+            href="#"
+            className="text-center text-xs text-[#00376B] mt-4 hover:underline block cursor-not-allowed"
+          >
             Forgot password?
-          </p>
+          </a>
         </div>
 
         <div className="bg-white border border-gray-300 text-center py-4 mt-2">
           <p className="text-sm">
-            Don’t have an account?{" "}
-            <a href="/signup" className="text-[#0095f6] font-semibold">
+            Don’t have an account?
+            <a
+              href="/signup"
+              className="text-[#0095f6] font-semibold hover:underline"
+            >
+              {" "}
               Sign up
             </a>
           </p>
+        </div>
+
+        <div className="text-center mt-6 text-xs text-gray-500">
+          Get the app.
         </div>
       </div>
     </div>

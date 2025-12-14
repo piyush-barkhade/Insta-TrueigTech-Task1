@@ -75,16 +75,13 @@ export default function Sidebar() {
           <Compass size={22} /> Explore
         </div>
         <div className="flex items-center gap-4 cursor-not-allowed text-gray-400">
-          <Film size={22} /> Reels
-        </div>
-        <div className="flex items-center gap-4 cursor-not-allowed text-gray-400">
           <MessageCircle size={22} /> Messages
         </div>
         <div className="flex items-center gap-4 cursor-not-allowed text-gray-400">
           <Heart size={22} /> Notifications
         </div>
-        <Link className="flex items-center gap-4" to="/create">
-          <PlusSquare size={22} /> Create
+        <Link className="flex items-center gap-4 font-medium" to="/create">
+          <PlusSquare size={22} /> Create Post
         </Link>
         {renderAuthLinks()}
       </nav>

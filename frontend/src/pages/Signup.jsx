@@ -1,5 +1,6 @@
 import { useState } from "react";
 import api from "../api/api";
+import { Facebook, Loader2 } from "lucide-react";
 
 export default function Signup() {
   const [form, setForm] = useState({
@@ -23,7 +24,10 @@ export default function Signup() {
       await api.post("/auth/signup", form);
       window.location = "/login";
     } catch (err) {
-      setError("Something went wrong. Please try again.");
+      const errorMessage =
+        err.response?.data?.message ||
+        "That username or email is already taken.";
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -33,63 +37,94 @@ export default function Signup() {
     <div className="min-h-screen bg-gray-50 flex items-center justify-center">
       <div className="w-[350px]">
         <div className="bg-white border border-gray-300 px-10 py-8">
-          <h1 className="text-4xl font-serif text-center mb-4">InstaRight</h1>
-
+          <h1 className="text-4xl font-serif text-center mb-4 font-extrabold">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-pink-500 to-yellow-500">
+              InstaRight
+            </span>
+          </h1>
           <p className="text-center text-gray-500 text-sm font-semibold mb-4">
             Sign up to see photos and videos from your friends.
           </p>
-
+          <button
+            className="w-full bg-[#0095f6] text-white text-sm font-semibold py-1.5 rounded-lg flex items-center cursor-not-allowed justify-center mb-4 transition-colors hover:bg-[#007edb]"
+            disabled={loading}
+          >
+            <Facebook size={16} className="mr-2" /> Log in with Facebook
+          </button>
+          <div className="flex items-center my-4">
+                        <div className="h-px bg-gray-300 flex-1" />{" "}
+            <span className="mx-4 text-xs text-gray-500 font-semibold">OR</span>{" "}
+            <div className="h-px bg-gray-300 flex-1" /> 
+          </div>
           {error && (
-            <p className="text-red-500 text-sm text-center mb-4">{error}</p>
+            <p className="text-red-600 text-sm text-center mb-4 border border-red-200 bg-red-50 p-2 rounded-md transition-opacity">
+              {error}
+            </p>
           )}
-
           <form onSubmit={submit} className="flex flex-col gap-2">
             <input
               name="email"
-              placeholder="Mobile Number or Email"
-              className="border border-gray-300 bg-gray-50 px-2 py-2 text-sm rounded focus:outline-none focus:border-gray-400"
+              placeholder="Email"
+              className="border border-gray-300 bg-gray-50 px-2 py-2 text-sm rounded focus:ring-1 focus:ring-gray-400 focus:outline-none"
               value={form.email}
               onChange={handleChange}
               required
             />
-
             <input
               name="username"
               placeholder="Username"
-              className="border border-gray-300 bg-gray-50 px-2 py-2 text-sm rounded focus:outline-none focus:border-gray-400"
+              className="border border-gray-300 bg-gray-50 px-2 py-2 text-sm rounded focus:ring-1 focus:ring-gray-400 focus:outline-none"
               value={form.username}
               onChange={handleChange}
               required
             />
-
             <input
               name="password"
               type="password"
               placeholder="Password"
-              className="border border-gray-300 bg-gray-50 px-2 py-2 text-sm rounded focus:outline-none focus:border-gray-400"
+              className="border border-gray-300 bg-gray-50 px-2 py-2 text-sm rounded focus:ring-1 focus:ring-gray-400 focus:outline-none"
               value={form.password}
               onChange={handleChange}
               required
             />
-
             <button
-              disabled={loading}
-              className="mt-2 bg-[#0095f6] text-white text-sm font-semibold py-1.5 rounded disabled:opacity-50"
+              disabled={
+                loading || !form.email || !form.username || !form.password
+              }
+              className="mt-4 bg-[#0095f6] text-white text-sm font-semibold py-1.5 rounded-lg transition-colors duration-300 flex items-center justify-center
+              disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#007edb] focus:ring-2 focus:ring-blue-300 focus:ring-offset-1"
             >
-              {loading ? "Signing up..." : "Sign up"}
+              {loading ? (
+                <Loader2 size={20} className="animate-spin" />
+              ) : (
+                "Sign up"
+              )}
             </button>
           </form>
-
-          <p className="text-xs text-gray-500 text-center mt-4">
-            By signing up, you agree to our Terms, Privacy Policy and Cookies
-            Policy.
+          <p className="text-xs text-gray-500 text-center mt-4 px-2">
+                        By signing up, you agree to our{" "}
+            <a href="#" className="font-semibold hover:underline">
+              Terms
+            </a>
+            ,{" "}
+            <a href="#" className="font-semibold hover:underline">
+              Privacy Policy{" "}
+            </a>
+            and
+            <a href="#" className="font-semibold hover:underline">
+              {" "}
+              Cookies Policy
+            </a>
+            .
           </p>
         </div>
-
         <div className="bg-white border border-gray-300 text-center py-4 mt-2">
           <p className="text-sm">
             Have an account?
-            <a href="/login" className="text-[#0095f6] font-semibold">
+            <a
+              href="/login"
+              className="text-[#0095f6] font-semibold hover:underline ml-1"
+            >
               Log in
             </a>
           </p>
