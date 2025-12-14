@@ -22,7 +22,12 @@ export default function Login() {
       localStorage.setItem("userId", res.data.user._id);
       window.location = "/";
     } catch (err) {
-      setError("Sorry, your password was incorrect.");
+      const backendMessage = err.response?.data?.message;
+      if (backendMessage) {
+        setError(backendMessage);
+      } else {
+        setError("Login failed. Please check your network connection.");
+      }
     } finally {
       setLoading(false);
     }
@@ -35,20 +40,18 @@ export default function Login() {
           <h1 className="text-4xl font-serif text-center mb-8 font-extrabold">
             <span
               className="
-                bg-clip-text text-transparent bg-gradient-to-r 
-                from-indigo-600 via-pink-500 to-yellow-500
-              "
+                bg-clip-text text-transparent bg-gradient-to-r 
+                from-indigo-600 via-pink-500 to-yellow-500
+              "
             >
               InstaRight
             </span>
           </h1>
-
           {error && (
             <p className="text-red-600 text-sm text-center mb-4 border border-red-200 bg-red-50 p-2 rounded-md transition-opacity">
               {error}
             </p>
           )}
-
           <form onSubmit={submit} className="flex flex-col gap-2">
             <input
               name="email"
@@ -58,7 +61,6 @@ export default function Login() {
               onChange={handleChange}
               required
             />
-
             <input
               name="password"
               type="password"
@@ -68,11 +70,10 @@ export default function Login() {
               onChange={handleChange}
               required
             />
-
             <button
-              disabled={loading || !form.email || !form.password} // Disable if fields are empty
+              disabled={loading || !form.email || !form.password}
               className="mt-4 bg-[#0095f6] text-white text-sm font-semibold py-1.5 rounded-lg transition-colors duration-300 flex items-center justify-center 
-              disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#007edb] focus:ring-2 focus:ring-blue-300 focus:ring-offset-1"
+              disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#007edb] focus:ring-2 focus:ring-blue-300 focus:ring-offset-1"
             >
               {loading ? (
                 <Loader2 size={20} className="animate-spin" />
@@ -81,13 +82,11 @@ export default function Login() {
               )}
             </button>
           </form>
-
           <div className="flex items-center my-4">
             <div className="h-px bg-gray-300 flex-1" />
             <span className="mx-4 text-xs text-gray-500 font-semibold">OR</span>
             <div className="h-px bg-gray-300 flex-1" />
           </div>
-
           <a
             href="#"
             className="flex items-center justify-center text-sm text-[#385185] font-semibold cursor-not-allowed py-1.5 hover:text-[#264070] transition-colors"
@@ -95,7 +94,6 @@ export default function Login() {
             <Facebook size={16} className="mr-2" />
             Log in with Facebook
           </a>
-
           <a
             href="#"
             className="text-center text-xs text-[#00376B] mt-4 hover:underline block cursor-not-allowed"
@@ -103,22 +101,19 @@ export default function Login() {
             Forgot password?
           </a>
         </div>
-
         <div className="bg-white border border-gray-300 text-center py-4 mt-2">
           <p className="text-sm">
-            Don’t have an account?
+            Don’t have an account?{" "}
             <a
               href="/signup"
               className="text-[#0095f6] font-semibold hover:underline"
             >
-              {" "}
               Sign up
             </a>
           </p>
         </div>
-
-        <div className="text-center mt-6 text-xs text-gray-500">
-          Get the app.
+        <div className="text-center mt-6">
+                    <p className="text-sm text-gray-700 mb-4">Get the app.</p> 
         </div>
       </div>
     </div>

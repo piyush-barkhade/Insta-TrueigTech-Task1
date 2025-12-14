@@ -24,10 +24,15 @@ export default function Signup() {
       await api.post("/auth/signup", form);
       window.location = "/login";
     } catch (err) {
-      const errorMessage =
-        err.response?.data?.message ||
-        "That username or email is already taken.";
-      setError(errorMessage);
+      const backendMessage = err.response?.data?.message;
+
+      if (backendMessage) {
+        setError(backendMessage);
+      } else {
+        setError(
+          "Registration failed. Please check your network or try again."
+        );
+      }
     } finally {
       setLoading(false);
     }
@@ -38,23 +43,28 @@ export default function Signup() {
       <div className="w-[350px]">
         <div className="bg-white border border-gray-300 px-10 py-8">
           <h1 className="text-4xl font-serif text-center mb-4 font-extrabold">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-pink-500 to-yellow-500">
+            <span
+              className="
+                bg-clip-text text-transparent bg-gradient-to-r 
+                from-indigo-600 via-pink-500 to-yellow-500
+              "
+            >
               InstaRight
             </span>
           </h1>
           <p className="text-center text-gray-500 text-sm font-semibold mb-4">
-            Sign up to see photos and videos from your friends.
+                        Sign up to see photos and videos from your friends.{" "}
           </p>
           <button
-            className="w-full bg-[#0095f6] text-white text-sm font-semibold py-1.5 rounded-lg flex items-center cursor-not-allowed justify-center mb-4 transition-colors hover:bg-[#007edb]"
+            className="w-full bg-[#0095f6] text-white text-sm font-semibold py-1.5 rounded-lg flex items-center justify-center mb-4 transition-colors hover:bg-[#007edb]"
             disabled={loading}
           >
             <Facebook size={16} className="mr-2" /> Log in with Facebook
           </button>
           <div className="flex items-center my-4">
-                        <div className="h-px bg-gray-300 flex-1" />{" "}
-            <span className="mx-4 text-xs text-gray-500 font-semibold">OR</span>{" "}
-            <div className="h-px bg-gray-300 flex-1" /> 
+            <div className="h-px bg-gray-300 flex-1" />
+            <span className="mx-4 text-xs text-gray-500 font-semibold">OR</span>
+            <div className="h-px bg-gray-300 flex-1" />
           </div>
           {error && (
             <p className="text-red-600 text-sm text-center mb-4 border border-red-200 bg-red-50 p-2 rounded-md transition-opacity">
@@ -108,11 +118,10 @@ export default function Signup() {
             </a>
             ,{" "}
             <a href="#" className="font-semibold hover:underline">
-              Privacy Policy{" "}
-            </a>
-            and
+              Privacy Policy
+            </a>{" "}
+            and{" "}
             <a href="#" className="font-semibold hover:underline">
-              {" "}
               Cookies Policy
             </a>
             .
