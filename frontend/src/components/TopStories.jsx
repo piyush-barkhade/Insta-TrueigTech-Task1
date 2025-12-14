@@ -8,9 +8,15 @@ export default function TopStories() {
             className="flex flex-col items-center flex-shrink-0 w-18"
           >
             <div className="w-18 h-18 rounded-full border-2 border-pink-500 p-[2px]">
-              <div className="bg-gray-200 w-full h-full rounded-full" />
+              <div className="bg-gray-200 w-full h-full rounded-full">
+                <img
+                  src="https://picsum.photos/id/1012/100/100"
+                  alt="Dummy Story Image"
+                  className="w-full h-full rounded-full object-cover"
+                />
+              </div>
             </div>
-            <span className="text-xs mt-1 truncate">user{i + 1}</span>
+            <span className="text-xs mt-1 truncate">User {i + 1}</span>
           </div>
         ))}
       </div>

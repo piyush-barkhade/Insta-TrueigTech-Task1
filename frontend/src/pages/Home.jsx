@@ -9,8 +9,8 @@ import { Link } from "react-router-dom";
 import TopStories from "../components/TopStories";
 
 const StoriesSkeleton = () => (
-  <div className="max-w-4xl mx-auto flex gap-4 overflow-hidden mb-8 p-4 bg-white border border-gray-200 rounded-lg animate-pulse">
-    {[...Array(6)].map((_, i) => (
+  <div className="max-w-4xl mx-auto flex gap-8 overflow-hidden mb-8 p-4 bg-white border border-gray-200 rounded-lg animate-pulse">
+    {[...Array(9)].map((_, i) => (
       <div key={i} className="flex flex-col items-center">
         <div className="w-16 h-16 rounded-full bg-gray-300 ring-2 ring-gray-400"></div>
         <div className="h-2 w-10 mt-1 bg-gray-200 rounded"></div>
@@ -68,7 +68,7 @@ export default function Home() {
       );
     }
     return (
-      <div className="flex-1 min-w-0 pt-8 md:pt-12">
+      <div className="flex-1 min-w-0 pt-8 md:pt-8">
         <div className="max-w-4xl mx-auto">
           <TopStories />
 
