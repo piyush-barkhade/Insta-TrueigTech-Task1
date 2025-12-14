@@ -136,7 +136,7 @@ export default function PostCard({ post }) {
 
   return (
     <>
-      <div className="bg-white border rounded mb-6 max-w-xl mx-auto shadow-sm">
+      <div className="bg-white border rounded mb-6 max-w-3xl mx-auto shadow-sm">
         <div className="p-3 flex items-center gap-3 border-b border-gray-100">
           <Link to={`/profile/${currentPost.user._id}`}>
             <div className="w-8 h-8 rounded-full overflow-hidden bg-gray-300 flex items-center justify-center">
