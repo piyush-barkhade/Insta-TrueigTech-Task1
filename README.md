@@ -20,12 +20,19 @@ Icons	- Lucide Icons
 Follow these steps to get your development environment running --
 
 git clone https://github.com/piyush-barkhade/Insta-TrueigTech-Task1.git
+
 cd Insta-TrueigTech-Task1
+
 cd backend
+
 npm install
+
 cd ..
+
 cd client
+
 npm install
+
 npm run dev
 
 
