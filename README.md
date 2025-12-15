@@ -29,7 +29,7 @@ npm install
 
 cd ..
 
-cd client
+cd frontend
 
 npm install
 
